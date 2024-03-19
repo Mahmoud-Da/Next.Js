@@ -67,7 +67,7 @@ VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ms-vsco
 VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
 
 
-*** Creating Your First Next.Js Project *** 
+*** 4-Creating Your First Next.Js Project *** 
 in terminal we type
 
 npx create-next-app@13.4.13
@@ -83,16 +83,58 @@ Ok to proceed? (y) y
 ✔ Would you like to customize the default import alias? › No / Yes
 
 
-*** Project Structure ***
+*** 5-Project Structure ***
 folders:
-- app => called the app-folder or app-router this file is the container
+-- app => called the app-folder or app-router this file is the container
 of our routing system
 
 inisde the app-folder:
 we have
 - global-css: for global styling
+
 - layout.tsx: basic react component that returns an html and body elements
 this represent the common layout for our pages
 inside the body element we childer
 <body className={inter.className}>{children}</body>
 which is replaced by a page dynamically at the runtime depending on where the user is in our application
+
+- page.tsx: represent our home-page 
+for this demo we will remove everything inside the return statment and we will return
+
+return <main>Hello World</main>;
+
+in our browser we can see the Hello world with fast refresh
+so anytime we make any changes to our typescript or css files, the changes are reflected immediately
+
+now we can see our main page in browser have a style that coz the styles which applied
+to the body element inside the globals.css file
+
+to remove the linear background we remove the 
+
+background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+
+from the body element in globals.css
+
+(coz my chrome is black the defualt font-color is white so i changed the color)
+from 
+color: rgb(var(--foreground-rgb));
+to 
+color: black
+
+finaly we apply padding 1 rem to the body so our text is not too close to the edge
+padding: 1rem;
+
+
+-- public folder
+this where we can put our public assests, like images
+
+and other configurations files for the most part we don`t have to touch them 
+if in the future we needed to change any one of it we will revisit them
+
+*** 6-Routing-and-Navigatio ***
+
