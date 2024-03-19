@@ -1,0 +1,98 @@
+*** 2-What is Next.Js ***
+- What is Next.Js:
+a framework for building fast & search-engine friendly applications
+is built in top of React 
+
+=> so everything we have learnt a bout React is still relevant But
+Next.Js takes web development to the next level
+While React is just a library for creating interactive (UIs)
+Next.Js is comprehensive framework 
+
+a framework = libs + tools + conventions that streamline application development
+
+Next.Js is including it`s own routing library so we don`t need to use a separate library ex: when React we used react-routes
+
+- Next.Js come with:
+1- Compiler:
+Transform & minify JS code
+
+2- CLI:
+Build & Start apps 
+
+3- Node.js Runtime:
+Excute JS Code
+
+- What is a Node.Js runtime?
+before 2009 JavaScript only was excuteble inside the server until 
+Ryan Dahl create Node to make JavaScript runs outside the Browser
+
+there is two ways that we can excute JavaScript
+web Browser => client side
+Node.js => Server side
+
+Node.js is a fancy term for a program that can excute JavaScript code 
+
+- Next.Js comes with a Node.js runtime and this allows us to do really cool things 
+1- we can do Full-stack development
+so we can write both the front-end and the back-end within the same Next.Js project
+Back-end code runs with Node.Js
+Front-end code runs with Web Browser
+so the code we wrote in the Back-end it sent to the client for excution within a web browser
+
+=> in contrast when building application with React we have to maintain a separate Back-end project 
+in a potentially different programming language
+
+2- allows us to render our component on the server
+and sent it content to the client
+This Technique is called "Server-Side Rendering(SSR) "
+and it makes our application
+- faster
+- more search-engine friendly
+
+- with Next.Js we can rerender certain pages and component that have 
+static data when we build our application
+we just render them once and serve them whenever they are needed 
+This Technique is called "Static-Site Generation"
+and can make our application super fast
+
+*** 3-Setting-Up-the-Development-Enviromnet ***
+from nodejs.org download the latest versoin
+download the extentions:
+- Name: ES7+ React/Redux/React-Native snippets
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+- Name: JavaScript and TypeScript Nightly
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next
+- Name: Tailwind CSS IntelliSense
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
+
+
+*** Creating Your First Next.Js Project *** 
+in terminal we type
+
+npx create-next-app@13.4.13
+
+PS: choose the defualt valuse 
+Ok to proceed? (y) y
+✔ What is your project named? … next-app
+✔ Would you like to use TypeScript? … No / Yes
+✔ Would you like to use ESLint? … No / Yes
+✔ Would you like to use Tailwind CSS? … No / Yes
+✔ Would you like to use `src/` directory? … No / Yes
+✔ Would you like to use App Router? (recommended) … No / Yes
+✔ Would you like to customize the default import alias? › No / Yes
+
+
+*** Project Structure ***
+folders:
+- app => called the app-folder or app-router this file is the container
+of our routing system
+
+inisde the app-folder:
+we have
+- global-css: for global styling
+- layout.tsx: basic react component that returns an html and body elements
+this represent the common layout for our pages
+inside the body element we childer
+<body className={inter.className}>{children}</body>
+which is replaced by a page dynamically at the runtime depending on where the user is in our application
