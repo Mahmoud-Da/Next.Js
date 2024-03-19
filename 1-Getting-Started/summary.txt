@@ -1,0 +1,3 @@
+what you should know
+TS
+React (Next.js is react framework)
