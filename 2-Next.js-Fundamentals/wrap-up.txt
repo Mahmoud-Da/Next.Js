@@ -138,3 +138,50 @@ if in the future we needed to change any one of it we will revisit them
 
 *** 6-Routing-and-Navigatio ***
 
+- Routing:
+- the Routing in Next.js is based on the file system
+in the app folder we create new folder users
+to make the users folder publicly accessible, we should add inside it page.tsx/page.jsx file
+Ps: make to sure to name it page in lower case coz the conventions that the Next.Js looks for
+so the route file system in Next.Js is based on convention not configuration
+
+- inside the page.tsx
+in this file we should export a react component that will be rerendered when the user is at this location "/users"
+
+now we generating component using rafce after creating the the component we should the function with capital letters
+in this case 
+instead of 
+const page ==> const UserPage
+
+in our browser we go to 
+http://localhost:3000/users
+we will see the new component
+
+- another thing a bout the routing system in Next.Js
+in the users folder we added another file baside the page.tsx it will not be accessible
+ex:
+http://localhost:3000/users/test.css
+we will have this page can`t be found
+
+- we can create a nasted routes
+for example inside the users folder we can add new folder and again inside the new folder we create page.tsx
+now if we access to 
+http://localhost:3000/users/new
+we will see 
+NewUserPage (the page.tsx component inside the users/new folder)
+
+- Navigation:
+in the page.tsx of app folder 
+if we want to navigate we don`t user a(hayper text)
+<a href="/users">Users</a>
+the reason why coz everytime we click on that Users all the style sheets are redownloaded
+which make our application performance slow when it became bigger
+for example we clike on Users we don`t want to rerender the same parts (NavBar, Side-Menu, UserCompnent) only we 
+want to render the Users component
+(we can check that using the Network tab and see all the resourses are redownloaded even if clear them when click the Users hypertext)
+
+this where we use the link Component  
+<Link href="/users">Users</Link>
+and we can see only the UserCompnent requests and only in resourses we see the content 
+of the add/new/page.tsx content that what we called Client Side Navigation
+
