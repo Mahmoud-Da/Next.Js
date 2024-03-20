@@ -1,0 +1,500 @@
+*** 2-What is Next.Js ***
+- What is Next.Js:
+a framework for building fast & search-engine friendly applications
+is built in top of React 
+
+=> so everything we have learnt a bout React is still relevant But
+Next.Js takes web development to the next level
+While React is just a library for creating interactive (UIs)
+Next.Js is comprehensive framework 
+
+a framework = libs + tools + conventions that streamline application development
+
+Next.Js is including it`s own routing library so we don`t need to use a separate library ex: when React we used react-routes
+
+- Next.Js come with:
+1- Compiler:
+Transform & minify JS code
+
+2- CLI:
+Build & Start apps 
+
+3- Node.js Runtime:
+Excute JS Code
+
+- What is a Node.Js runtime?
+before 2009 JavaScript only was excuteble inside the server until 
+Ryan Dahl create Node to make JavaScript runs outside the Browser
+
+there is two ways that we can excute JavaScript
+web Browser => client side
+Node.js => Server side
+
+Node.js is a fancy term for a program that can excute JavaScript code 
+
+- Next.Js comes with a Node.js runtime and this allows us to do really cool things 
+1- we can do Full-stack development
+so we can write both the front-end and the back-end within the same Next.Js project
+Back-end code runs with Node.Js
+Front-end code runs with Web Browser
+so the code we wrote in the Back-end it sent to the client for excution within a web browser
+
+=> in contrast when building application with React we have to maintain a separate Back-end project 
+in a potentially different programming language
+
+2- allows us to render our component on the server
+and sent it content to the client
+This Technique is called "Server-Side Rendering(SSR) "
+and it makes our application
+- faster
+- more search-engine friendly
+
+- with Next.Js we can rerender certain pages and component that have 
+static data when we build our application
+we just render them once and serve them whenever they are needed 
+This Technique is called "Static-Site Generation"
+and can make our application super fast
+
+*** 3-Setting-Up-the-Development-Enviromnet ***
+from nodejs.org download the latest versoin
+download the extentions:
+- Name: ES7+ React/Redux/React-Native snippets
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+- Name: JavaScript and TypeScript Nightly
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next
+- Name: Tailwind CSS IntelliSense
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
+
+
+*** 4-Creating Your First Next.Js Project *** 
+in terminal we type
+
+npx create-next-app@13.4.13
+
+PS: choose the defualt valuse 
+Ok to proceed? (y) y
+✔ What is your project named? … next-app
+✔ Would you like to use TypeScript? … No / Yes
+✔ Would you like to use ESLint? … No / Yes
+✔ Would you like to use Tailwind CSS? … No / Yes
+✔ Would you like to use `src/` directory? … No / Yes
+✔ Would you like to use App Router? (recommended) … No / Yes
+✔ Would you like to customize the default import alias? › No / Yes
+
+
+*** 5-Project Structure ***
+folders:
+-- app => called the app-folder or app-router this file is the container
+of our routing system
+
+inisde the app-folder:
+we have
+- global-css: for global styling
+
+- layout.tsx: basic react component that returns an html and body elements
+this represent the common layout for our pages
+inside the body element we childer
+<body className={inter.className}>{children}</body>
+which is replaced by a page dynamically at the runtime depending on where the user is in our application
+
+- page.tsx: represent our home-page 
+for this demo we will remove everything inside the return statment and we will return
+
+return <main>Hello World</main>;
+
+in our browser we can see the Hello world with fast refresh
+so anytime we make any changes to our typescript or css files, the changes are reflected immediately
+
+now we can see our main page in browser have a style that coz the styles which applied
+to the body element inside the globals.css file
+
+to remove the linear background we remove the 
+
+background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+
+from the body element in globals.css
+
+(coz my chrome is black the defualt font-color is white so i changed the color)
+from 
+color: rgb(var(--foreground-rgb));
+to 
+color: black
+
+finaly we apply padding 1 rem to the body so our text is not too close to the edge
+padding: 1rem;
+
+
+-- public folder
+this where we can put our public assests, like images
+
+and other configurations files for the most part we don`t have to touch them 
+if in the future we needed to change any one of it we will revisit them
+
+*** 6-Routing-and-Navigatio ***
+
+- Routing:
+- the Routing in Next.js is based on the file system
+in the app folder we create new folder users
+to make the users folder publicly accessible, we should add inside it page.tsx/page.jsx file
+Ps: make to sure to name it page in lower case coz the conventions that the Next.Js looks for
+so the route file system in Next.Js is based on convention not configuration
+
+- inside the page.tsx
+in this file we should export a react component that will be rerendered when the user is at this location "/users"
+
+now we generating component using rafce after creating the the component we should the function with capital letters
+in this case 
+instead of 
+const page ==> const UserPage
+
+in our browser we go to 
+http://localhost:3000/users
+we will see the new component
+
+- another thing a bout the routing system in Next.Js
+in the users folder we added another file baside the page.tsx it will not be accessible
+ex:
+http://localhost:3000/users/test.css
+we will have this page can`t be found
+
+- we can create a nasted routes
+for example inside the users folder we can add new folder and again inside the new folder we create page.tsx
+now if we access to 
+http://localhost:3000/users/new
+we will see 
+NewUserPage (the page.tsx component inside the users/new folder)
+
+- Navigation:
+in the page.tsx of app folder 
+if we want to navigate we don`t user a(hayper text)
+<a href="/users">Users</a>
+the reason why coz everytime we click on that Users all the style sheets are redownloaded
+which make our application performance slow when it became bigger
+for example we clike on Users we don`t want to rerender the same parts (NavBar, Side-Menu, UserCompnent) only we 
+want to render the Users component
+(we can check that using the Network tab and see all the resourses are redownloaded even if clear them when click the Users hypertext)
+
+this where we use the link Component  
+<Link href="/users">Users</Link>
+and we can see only the UserCompnent requests and only in resourses we see the content 
+of the add/new/page.tsx content that what we called Client Side Navigation
+
+*** 7-Client-and-Server-Components ***
+in the Next.Js project we have two enviromnets where we can render our components
+and generate HTML markup, either on the client within a web browser
+
+- Rendering components on the client it similar to how the React application work
+we refer to this Technique as client-side rendering (CSR)
+
+- Rendering component on the server called server-side rendering (SSR) where the component
+is rendered on the server 
+
+What are Diffrenses:
+- client-side rendering:
+1- Large bundle:
+as our application grows, so does our bundle size coz it must contain
+all of our components.
+the larger the bundle the more memory we need on the client to load all these component
+so client-side rendering is resourses heavy
+
+2- Resource intensive:
+coz the Large bundle problem
+
+3- No SEO (search engine bots):
+the search engine bots which are machines that browser and index our websites, can`t view
+our contact coz because they can`t excute JavaScript code, so they can`t render our component
+like we browser
+
+4- less secure:
+any sensitive data we have in our component or their dependencies like API keys, will ve exposed to the client
+
+- server-side rendering:
+1- small bundle:
+coz we only send the essintial components to the client and prevent our bundle from becoming
+unnecessarily large
+
+2- Resource efficient:
+coz the server is handles most of the rendering, we need less resourses on the client 
+
+3- SEO:
+coz rendering is done on the server and we send actual content to the client, search engine bots
+can view and index our pages.
+
+4- more secure:
+coz we can keep sensitive data, like API keys, on the server 
+
+but in the server-side rendering we lose interactivity what that means?
+Server Component can`t 
+1- listen to browser events
+(Click buttons, change, submit, and so....)
+
+2- Access Browser API:
+local storage
+
+3- Maintain state.
+
+4- use Effects.
+
+these functionalities are only available in client components.
+so in real world application we often use a mixture of server and client components.
+
+we should defualt to the server components and use client components only when absolutely
+need them
+
+****************************************************
+ex:
+we want to build a page to show a list of product to build this page, we need several components
+like 
+NavBar, SideBar, ProductList, ProductCard, Pagination, Footer
+
+now in the standerd React application we have to package all these components and send them
+to the client for rendering.
+But in Next.Js we can keep akk the these components on the server and minimize the bundle size
+there only one exception 
+to add the product to a shopping cart, we need to handle the click event of button 
+typically we implement this functionality in the product card component, so we have to make 
+it a client component that`s one option 
+
+but is better way we keep all the component into the server and instead we extract a small component
+that only handle click the button 
+with this change we only ship that tiny component to the client and keep everything else on the server
+
+****************************************************
+
+****************************************************
+to see that in action:
+in Next.Js all components inside the app folder are server-components by defualt
+that`s means all the pages which have craeteed so far, "users" these are server component
+by defualt and are rendered on the server 
+
+in Network tab if go to localhost we can see "Hello world" what the engine bots see 
+in contrast when create component with react localhost will be empty coz the content is rendering
+on the client so the search engine bot can`t see any context
+
+now we inside the app folder we crete components folder and inside it we create ProductCard1.tsx
+we create inside it a basic component using "rafce" 
+earlier we said server component can`t have interactivity so they can`t handle events(click, change, and so on ...)
+that`s means if we add button with onClick event we will have a runtime error 
+
+inside the ProductCard1.tsx we add
+<button onClick={() => console.log("Click")}>Add to Cart</button>
+
+then we add that component to the main page in app folder 
+
+we got this error
+Unhandled Runtime Error
+Error: Event handlers cannot be passed to Client Component props.
+  <button onClick={function} children=...>
+                  ^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+
+to fix that we have tow options:
+1- change the entire ProductCard1.tsx to client component
+by adding to the top of component direcive 
+"use client"
+with this we tell the Next.Js compiler to include this file or this component in our JavaScript bundle
+and that`s means if this component is dependent on other components those component will automatically
+become client components and will be included in our JavaScript bundle so we don`t have to repeat that
+direcive in every client component
+
+better way ProductCard2
+2- to make our application faster and more search engine friendly we want to render our components on the 
+server as much as possible and use client component only when absolutely necessary
+
+so in ProductCard2 we if have a complex markup we want only to move the button element to client component
+so we will extract this separate button and put in different component
+now inside the component folder we create AddToCart.tsx
+on the top  we use the client direcive then we move the button of ProductCard2.tsx to our AddToCart component
+and then we call that AddToCart to our ProductCard2
+****************************************************
+
+
+
+*** 8-Data-Fetching ***
+there is two ways to fetching data we can fetch them on the client or on the server
+
+- Fetching on the Client
+we use useState() + useEffect()
+or use React Query
+
+regarding of how we fetch the data, fetching data on the client in client component has all 
+the problems we talked a bout it in prevoius lessons (large bundle and Resource intensive and no SEO and less secure)
++ another problem Extra roundtrip to server 
+*******************************
+so when a react application loads, first the browser downloads the Html template as well as
+the CSS and JavaScript files from the server (backend), then it will send an extra request
+to fetch data from the backend.
+*******************************
+now we can fetch data in our server component and get rid of all these problems 
+
+in action:
+we use jsonplaceholder to get dummy data into our application 
+https://jsonplaceholder.typicode.com/
+
+in this demo we will get dummy data of the users for our application
+
+now we go to the server component app/users/page.tsx and with server component we can use fetch method 
+fetch method is defined in the browser and with it we can send HTTP request to the backend 
+fetch("https://jsonplaceholder.typicode.com/users");
+it return a promise so we have to await it and save it in result 
+const UserPage = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  ....}
+to grap the user 
+res.json();
+and it return a promise so we await it 
+const users = await res.json();
+to render that we can map the user like the same as react 
+<ul>{users.map(user => user.)}</ul> 
+we can`t see what we want to show with map method 
+coz the type of users is any 
+to improve our code by using some TypeScript magic  we create interface and select the type of data that we want to grape
+
+we create Users interfase and set the type of const users to it
+id and name is from the data
+interface Users {
+  id: number;
+  name: string;
+}
+
+const users: Users[] = await res.json();
+then we can now see the type of user
+
+now are code is smaller and bundle is small coz it well be in the server 
+now we can go to 
+http://localhost:3000/users
+to check our users 
+
+we can check in the Network tab in users the data that make our code more SEO friendly
+and the reason why we can see the users name in request coz the data is fetching on the server
+
+so when fetching data we should do it using Server component
+
+*** 9-Caching ***
+Fetching in the Server component has extra benefit and that is Caching
+
+What is Caching:
+Storing data somewher that is faster to access
+
+basically there is three places where we can get the data from 
+Data Source:
+1- Memory
+2- file system
+3- Network
+
+as we go down form ↑list  (Data Source) getting data becomes slower
+ex:
+getting data from the Network is always than getting it from the file system
+*********************************************************************************************
+for this reason Next.Js comes with a built data cache so where ever we use the fetch function 
+to get some data Next.Js will automatically store the result in its data cache which base in on the 
+file system so the next time we need the same piece of data, the next time we hit the same url, Next.Js
+is not going to got to json placeholder 
+it`s going to get the data cache, from the file system of course we have full control 
+over this caching behavior if we have data that changes frequently. we can disable caching or treat
+data in cache as frech for a certain period of time 
+to see that in action we can 
+const res = await fetch("https://jsonplaceholder.typicode.com/users", {
+    cache: "no-store",
+  });
+that one option and it usful if we have data that changes frequently (we always want to show the fresh data)
+
+the other option is keep the data fresh for a certain time we set the next object
+
+const res = await fetch("https://jsonplaceholder.typicode.com/users", {
+    next: { revalidate: 10 },
+  });
+revalidate is parameter for configuration that related to next
+we set it to 10 that means Next.js is going to run background job and get fresh data from the server (backend)
+every 10 seconds 
+
+PS: caching behavior is implemented in the fetch function so if we used third party library like access
+we are not going to get the data cache.
+*********************************************************************************************
+
+
+*** 10-Static and Dynamic Rendering ***
+in Next.Js we another performance optimization Technique called static rendering or static site generation
+
+the idea of the static rendering:
+if we have pages or component has static data we can have Next.Js render them once when we build the application
+for production 
+so next time those pages or components are needed, Next.js is not going to re-render them
+it`s going to get their payload or content from the cache which is based on the file system
+static rendering means rendering at the build time 
+
+Dynamic Rendering:
+rendering which happens at request time.
+
+to see it in action:
+*********************************************************************************************
+down the <h1>Users</h1> we calculate the time by adding 
+<p>{new Date().toLocaleTimeString()}</p>
+
+we can see the time is changing coz it on the development mode
+but if we build the application for production the time stamp is not going to change coz Next.Js will
+treat this page as static page 
+
+when Next.Js render the component as static or dynamic
+depends on how we fetch the data by default it will treated as statc but 
+if we cancel the data cache Next.Js we treat that component as dynamic
+
+now to check that in production instead of 
+npm run dev (develop mode)
+
+npm run build (production mode)
+npm start(to run the application after building it)
+
+when we see the log while building the project 
+Route (app)                              Size     First Load JS
+┌ ○ /                                    360 B          84.6 kB
+├ ○ /_not-found                          885 B          85.2 kB
+├ ○ /users                               136 B          84.4 kB
+└ ○ /users/new                           6.95 kB        91.2 kB
++ First Load JS shared by all            84.3 kB
+  ├ chunks/69-1ca8ced0f2df4840.js        29 kB
+  ├ chunks/fd9d1056-042f3936e6f30319.js  53.4 kB
+  └ other shared chunks (total)          1.86 kB
+
+
+○  (Static)  prerendered as static content
+
+we can see that the component which start with  ○ is a static component
+
+now the time of the users is not changing coz its treated as static
+
+now if disable the caching and rebuild the application for production
+Route (app)                              Size     First Load JS
+┌ ○ /                                    360 B          84.6 kB
+├ ○ /_not-found                          885 B          85.2 kB
+├ λ /users                               136 B          84.4 kB
+└ ○ /users/new                           6.95 kB        91.2 kB
++ First Load JS shared by all            84.3 kB
+  ├ chunks/69-1ca8ced0f2df4840.js        29 kB
+  ├ chunks/fd9d1056-042f3936e6f30319.js  53.4 kB
+  └ other shared chunks (total)          1.86 kB
+
+
+○  (Static)   prerendered as static content
+λ  (Dynamic)  server-rendered on demand using Node.js
+
+we can see that the component which start with  λ is a dynamic component
+now the time of the users is not changing coz its treated as dynamic
+
+
+to recap
+            ==> Client Side
+Rendering 
+            ==> Server Side 
+                          ==> Static(at build time)
+
+                          ==> Dynamic (at request time)
+
+*********************************************************************************************
+
