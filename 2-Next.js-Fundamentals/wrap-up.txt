@@ -418,3 +418,83 @@ PS: caching behavior is implemented in the fetch function so if we used third pa
 we are not going to get the data cache.
 *********************************************************************************************
 
+
+*** 10-Static and Dynamic Rendering ***
+in Next.Js we another performance optimization Technique called static rendering or static site generation
+
+the idea of the static rendering:
+if we have pages or component has static data we can have Next.Js render them once when we build the application
+for production 
+so next time those pages or components are needed, Next.js is not going to re-render them
+it`s going to get their payload or content from the cache which is based on the file system
+static rendering means rendering at the build time 
+
+Dynamic Rendering:
+rendering which happens at request time.
+
+to see it in action:
+*********************************************************************************************
+down the <h1>Users</h1> we calculate the time by adding 
+<p>{new Date().toLocaleTimeString()}</p>
+
+we can see the time is changing coz it on the development mode
+but if we build the application for production the time stamp is not going to change coz Next.Js will
+treat this page as static page 
+
+when Next.Js render the component as static or dynamic
+depends on how we fetch the data by default it will treated as statc but 
+if we cancel the data cache Next.Js we treat that component as dynamic
+
+now to check that in production instead of 
+npm run dev (develop mode)
+
+npm run build (production mode)
+npm start(to run the application after building it)
+
+when we see the log while building the project 
+Route (app)                              Size     First Load JS
+┌ ○ /                                    360 B          84.6 kB
+├ ○ /_not-found                          885 B          85.2 kB
+├ ○ /users                               136 B          84.4 kB
+└ ○ /users/new                           6.95 kB        91.2 kB
++ First Load JS shared by all            84.3 kB
+  ├ chunks/69-1ca8ced0f2df4840.js        29 kB
+  ├ chunks/fd9d1056-042f3936e6f30319.js  53.4 kB
+  └ other shared chunks (total)          1.86 kB
+
+
+○  (Static)  prerendered as static content
+
+we can see that the component which start with  ○ is a static component
+
+now the time of the users is not changing coz its treated as static
+
+now if disable the caching and rebuild the application for production
+Route (app)                              Size     First Load JS
+┌ ○ /                                    360 B          84.6 kB
+├ ○ /_not-found                          885 B          85.2 kB
+├ λ /users                               136 B          84.4 kB
+└ ○ /users/new                           6.95 kB        91.2 kB
++ First Load JS shared by all            84.3 kB
+  ├ chunks/69-1ca8ced0f2df4840.js        29 kB
+  ├ chunks/fd9d1056-042f3936e6f30319.js  53.4 kB
+  └ other shared chunks (total)          1.86 kB
+
+
+○  (Static)   prerendered as static content
+λ  (Dynamic)  server-rendered on demand using Node.js
+
+we can see that the component which start with  λ is a dynamic component
+now the time of the users is not changing coz its treated as dynamic
+
+
+to recap
+            ==> Client Side
+Rendering 
+            ==> Server Side 
+                          ==> Static(at build time)
+
+                          ==> Dynamic (at request time)
+
+*********************************************************************************************
+
