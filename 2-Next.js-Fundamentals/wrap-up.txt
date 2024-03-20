@@ -313,3 +313,66 @@ now inside the component folder we create AddToCart.tsx
 on the top  we use the client direcive then we move the button of ProductCard2.tsx to our AddToCart component
 and then we call that AddToCart to our ProductCard2
 ****************************************************
+
+
+
+*** 8-Data-Fetching ***
+there is two ways to fetching data we can fetch them on the client or on the server
+
+- Fetching on the Client
+we use useState() + useEffect()
+or use React Query
+
+regarding of how we fetch the data, fetching data on the client in client component has all 
+the problems we talked a bout it in prevoius lessons (large bundle and Resource intensive and no SEO and less secure)
++ another problem Extra roundtrip to server 
+*******************************
+so when a react application loads, first the browser downloads the Html template as well as
+the CSS and JavaScript files from the server (backend), then it will send an extra request
+to fetch data from the backend.
+*******************************
+now we can fetch data in our server component and get rid of all these problems 
+
+in action:
+we use jsonplaceholder to get dummy data into our application 
+https://jsonplaceholder.typicode.com/
+
+in this demo we will get dummy data of the users for our application
+
+now we go to the server component app/users/page.tsx and with server component we can use fetch method 
+fetch method is defined in the browser and with it we can send HTTP request to the backend 
+fetch("https://jsonplaceholder.typicode.com/users");
+it return a promise so we have to await it and save it in result 
+const UserPage = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  ....}
+to grap the user 
+res.json();
+and it return a promise so we await it 
+const users = await res.json();
+to render that we can map the user like the same as react 
+<ul>{users.map(user => user.)}</ul> 
+we can`t see what we want to show with map method 
+coz the type of users is any 
+to improve our code by using some TypeScript magic  we create interface and select the type of data that we want to grape
+
+we create Users interfase and set the type of const users to it
+id and name is from the data
+interface Users {
+  id: number;
+  name: string;
+}
+
+const users: Users[] = await res.json();
+then we can now see the type of user
+
+now are code is smaller and bundle is small coz it well be in the server 
+now we can go to 
+http://localhost:3000/users
+to check our users 
+
+we can check in the Network tab in users the data that make our code more SEO friendly
+and the reason why we can see the users name in request coz the data is fetching on the server
+
+so when fetching data we should do it using Server component
+ 
