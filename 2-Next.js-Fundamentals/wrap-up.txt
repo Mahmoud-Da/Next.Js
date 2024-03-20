@@ -185,3 +185,131 @@ this where we use the link Component
 and we can see only the UserCompnent requests and only in resourses we see the content 
 of the add/new/page.tsx content that what we called Client Side Navigation
 
+*** 7-Client-and-Server-Components ***
+in the Next.Js project we have two enviromnets where we can render our components
+and generate HTML markup, either on the client within a web browser
+
+- Rendering components on the client it similar to how the React application work
+we refer to this Technique as client-side rendering (CSR)
+
+- Rendering component on the server called server-side rendering (SSR) where the component
+is rendered on the server 
+
+What are Diffrenses:
+- client-side rendering:
+1- Large bundle:
+as our application grows, so does our bundle size coz it must contain
+all of our components.
+the larger the bundle the more memory we need on the client to load all these component
+so client-side rendering is resourses heavy
+
+2- Resource intensive:
+coz the Large bundle problem
+
+3- No SEO (search engine bots):
+the search engine bots which are machines that browser and index our websites, can`t view
+our contact coz because they can`t excute JavaScript code, so they can`t render our component
+like we browser
+
+4- less secure:
+any sensitive data we have in our component or their dependencies like API keys, will ve exposed to the client
+
+- server-side rendering:
+1- small bundle:
+coz we only send the essintial components to the client and prevent our bundle from becoming
+unnecessarily large
+
+2- Resource efficient:
+coz the server is handles most of the rendering, we need less resourses on the client 
+
+3- SEO:
+coz rendering is done on the server and we send actual content to the client, search engine bots
+can view and index our pages.
+
+4- more secure:
+coz we can keep sensitive data, like API keys, on the server 
+
+but in the server-side rendering we lose interactivity what that means?
+Server Component can`t 
+1- listen to browser events
+(Click buttons, change, submit, and so....)
+
+2- Access Browser API:
+local storage
+
+3- Maintain state.
+
+4- use Effects.
+
+these functionalities are only available in client components.
+so in real world application we often use a mixture of server and client components.
+
+we should defualt to the server components and use client components only when absolutely
+need them
+
+****************************************************
+ex:
+we want to build a page to show a list of product to build this page, we need several components
+like 
+NavBar, SideBar, ProductList, ProductCard, Pagination, Footer
+
+now in the standerd React application we have to package all these components and send them
+to the client for rendering.
+But in Next.Js we can keep akk the these components on the server and minimize the bundle size
+there only one exception 
+to add the product to a shopping cart, we need to handle the click event of button 
+typically we implement this functionality in the product card component, so we have to make 
+it a client component that`s one option 
+
+but is better way we keep all the component into the server and instead we extract a small component
+that only handle click the button 
+with this change we only ship that tiny component to the client and keep everything else on the server
+
+****************************************************
+
+****************************************************
+to see that in action:
+in Next.Js all components inside the app folder are server-components by defualt
+that`s means all the pages which have craeteed so far, "users" these are server component
+by defualt and are rendered on the server 
+
+in Network tab if go to localhost we can see "Hello world" what the engine bots see 
+in contrast when create component with react localhost will be empty coz the content is rendering
+on the client so the search engine bot can`t see any context
+
+now we inside the app folder we crete components folder and inside it we create ProductCard1.tsx
+we create inside it a basic component using "rafce" 
+earlier we said server component can`t have interactivity so they can`t handle events(click, change, and so on ...)
+that`s means if we add button with onClick event we will have a runtime error 
+
+inside the ProductCard1.tsx we add
+<button onClick={() => console.log("Click")}>Add to Cart</button>
+
+then we add that component to the main page in app folder 
+
+we got this error
+Unhandled Runtime Error
+Error: Event handlers cannot be passed to Client Component props.
+  <button onClick={function} children=...>
+                  ^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+
+to fix that we have tow options:
+1- change the entire ProductCard1.tsx to client component
+by adding to the top of component direcive 
+"use client"
+with this we tell the Next.Js compiler to include this file or this component in our JavaScript bundle
+and that`s means if this component is dependent on other components those component will automatically
+become client components and will be included in our JavaScript bundle so we don`t have to repeat that
+direcive in every client component
+
+better way ProductCard2
+2- to make our application faster and more search engine friendly we want to render our components on the 
+server as much as possible and use client component only when absolutely necessary
+
+so in ProductCard2 we if have a complex markup we want only to move the button element to client component
+so we will extract this separate button and put in different component
+now inside the component folder we create AddToCart.tsx
+on the top  we use the client direcive then we move the button of ProductCard2.tsx to our AddToCart component
+and then we call that AddToCart to our ProductCard2
+****************************************************
