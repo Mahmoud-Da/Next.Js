@@ -111,3 +111,76 @@ if we don`t want to mix our tsx and modle.css file we can create folder and name
 add our all components file inside it 
 
 PS: we can also Css module to ours page.tsx also 
+
+
+*** 4-Tailwind Css ***
+Tailwind is a famous CSS framework using the concept of utility classes
+
+ex:
+some clases for controle of clases 
+padding:
+p-[number] => padding
+px-[number] => horizontal padding
+px-[number] => vertical padding
+pt-[number] => top padding
+pr-[number] => right padding
+pb-[number] => bottom padding
+pl-[number] => left padding
+
+
+margin:
+m-[number] => margin
+mx-[number] => horizontal margin
+mx-[number] => vertical margin
+mt-[number] => top margin
+mr-[number] => right margin
+mb-[number] => bottom margin
+ml-[number] => left margin
+
+
+Text:
+- Size:
+text-xs
+text-sm
+text-base
+text-lg
+text-xl
+text-2xl
+text-3xl
+text-4xl
+
+- Color:
+text-[color] 
+bg-[color] => background color
+
+
+-Thickness:
+font-thin
+font-light
+font-normal
+font-medium
+font-bold
+
+
+if we google Tailwind color palette we can see all the colors
+https://tailwindcss.com/docs/customizing-colors
+
+this the idea of Tailwind of course there is ton of classe 
+
+to see it in action:
+**********************************
+ex:
+<div className="p-5 my-5 bg-sky-400 text-white text-xl">Hi</div>
+
+we can also apply hover to it 
+<div className="p-5 my-5 bg-sky-400 text-white text-xl hover:bg-sky-600">
+**********************************
+the idea of Tailwind to style our component inside the tsx file 
+instead of jumping between CSS and TSX file 
+
+one benifite to use Tailwind:
+when we build our application, our final css bundle will only have the utility
+clases that we used in our markup.
+so if tomorrow we delete this some element, none of there clases
+will be in our final Css bundle, unless we have used them somewhere else
+otherwise when using module.css we have to clean unused classes of the component changed
