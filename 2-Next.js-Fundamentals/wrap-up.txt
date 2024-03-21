@@ -498,3 +498,6 @@ Rendering
 
 *********************************************************************************************
 
+PS: when running the application in the development mode we can see anychange immediately
+so when working is better to use the development mode
+

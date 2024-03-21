@@ -1,0 +1,113 @@
+*** 2-Global Styles ***
+@media (prefers-color-scheme: dark)
+if the user is on the dark mode 
+
+to clean our global.css file 
+************************
+from the body we remove
+- in the body elements
+
+background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+
+and instead we add
+padding: 1rem;
+
+- @media 
+we remove these two lines
+--background-start-rgb: 0, 0, 0;
+--background-end-rgb: 0, 0, 0;
+
+- root
+--background-start-rgb: 214, 219, 220;
+--background-end-rgb: 255, 255, 255;
+************************
+
+- we copy the app folder from the prevoius lesson (2-Next.js-Fundamentals)
+then we run our application in development mode
+
+global.css: to write the styles that apply to all pages, anything related to body/head/footer element
+
+so inside the global.css we should never define a custom classes like user-list cards etc ...
+coz as more as our project goes larger global.css we be unmaintainble and more importantlly 
+as we change or delete our components, we`ll have to remmber and do some clean-up again in global.css
+otherwise we well end up with dead styles in the global.css
+
+
+*** 3-CSS Modules ***
+Css Module:
+A Css file that is scoped to a component/page, it`s a way is prevent files form clashes
+or overwriting each other.
+
+- if we have the same name of css classes that defined in two different places in two stylesheets
+, these classes can overwrite each other depending on how we import thesr stylesheet files
+so Css module is aim to solve this problem
+
+how Css Module works:
+************************************************************************
+in app folder 3-Styling/next-app/app/components
+we have multi component
+let`s say we want to write a style for 
+ProductCard2.tsx
+
+we create to next to it css file but is better to name it the same as the component
+and we have to give it .module.css as an extention
+ProductCard2.module.css
+
+in the ProductCard2.module.css we can define css classes that related to ProductCard2.tsx component
+and now we can write styles in ProductCard2.module.css without worring that is the classes will crash
+
+we define in ProductCard2.module.css
+.card {
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+
+now we got back to our component and import that sheet  
+ProductCard2.tsx
+1- import styles from "./ProductCard2.module.css";
+
+the we import it doesn`t matter but typically we go with styles
+
+styles will be JS object and the properties that we define inside the Css file will be
+the properties of the styles object
+
+PS:
+that`s why we can`t use hyphens in the class name of module.css files coz 
+in JS we can`t name property with hyphens ex: .card-color
+instead always we should use camel notation ex: .cardColor
+
+2- apply the style to the element we want 
+<div className={styles.card}>
+
+now when we look the div tool we can see the name of the class of <div className={styles.card}> in DOM is 
+different and auto generated
+ex: ProductCard2_card__jGb87
+
+so what is happening here is this project uses a tool called "post CSS" for transforming
+our CSS class names to prevent clashes
+
+************************************************************************
+
+in our project we have this file 
+postcss.config.js
+
+inside it we have 
+plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+for the most part we don`t have to touch this configuration, but if someone advanced post Css user
+here where it can provide the custom configuration
+
+so when building our application Next.Js uses post Css to transform our class names and generate
+unique class names that don`t clash
+
+if we don`t want to mix our tsx and modle.css file we can create folder and name with the component file and
+add our all components file inside it 
+
+PS: we can also Css module to ours page.tsx also 
