@@ -36,3 +36,6 @@ The fundamental of Next.Js
 
 Tailwind CSS:
 https://tailwindcss.com/
+
+Daisy UI:
+https://daisyui.com/

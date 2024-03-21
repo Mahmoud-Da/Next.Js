@@ -184,3 +184,67 @@ clases that we used in our markup.
 so if tomorrow we delete this some element, none of there clases
 will be in our final Css bundle, unless we have used them somewhere else
 otherwise when using module.css we have to clean unused classes of the component changed
+
+*** 5-Daisy UI ***
+Daisy UI: is very popular component library for tailwind (it`s like bootsrap but for tailwind)
+instead of combining small classes using tailwind we use Daisy UI the same idea of bootsrap
+
+
+to install in our project first we go to the download page
+https://daisyui.com/docs/install/
+
+1- npm i -D daisyui@latest
+2- inside the tailwind.config.ts
+we change 
+plugins: []
+with:
+plugins: [require("daisyui")]
+
+we will try buttons as demo 
+in this file we modify the button 
+3-Styling/next-app/app/components/AddToCart.tsx
+
+in Daisy UI there is the concept of thems 
+to change the them of our application
+https://daisyui.com/docs/themes/
+in config
+daisyui: {
+    # here we add the them we wants 
+    themes: ["light", "dark", "cupcake"],
+  }
+
+for these demo we will only use 
+daisyui: {
+    themes: ["night"],
+  }
+
+then we go to the layout.tsx coz here where we have the html element
+<html data-theme="night" lang="en">
+
+now let`s go to the users page and put them inside a table 
+we change the ul with table
+<table>
+  {users.map((user) => (
+    <li key={user.id}>{user.name}</li>
+  ))}
+</table>
+
+inside the table we create 
+thead>tr>th*2
+the first th we want to show the name 
+the scound we want to show the email 
+
+under that we create tbody and move the maping code to inside it
+and replace the li with tr
+{users.map((user) => (
+  <tr key={user.id}>{user.name}</tr>
+))}
+and inside the tr we create td*2 to render the name and email
+<tr key={user.id}>
+  <td>{user.name}</td>
+  <td>{user.email}</td>
+</tr>
+currently we don`t have the email so we add it to the interface 
+
+to make our table nicer we add some tailwind classes to our table 
+<table className="table">
