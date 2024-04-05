@@ -50,7 +50,9 @@ Route Handler: is a function that handle an HTTP request
 HTTP request have multi methods
 GET => getting data
 POST =>  creating data
-PUT => updateing data
+PUT => updating data (full object)
+PATCH => updating data (only porperties)
+DELETE => delete an object
 
 - inside the route.tsx we will use handle GET HTTP request 
 export function GET(request: NextRequest){
@@ -145,7 +147,7 @@ to update user we should send a request to api/users/1 that represet and individ
 and include the updated user information in this request
 
 now in the api/users/[id]/route.tsx we create the update function
-here we have tow options PUT and PATCH
+here we have two options PUT and PATCH
 PUT: to replace an object
 PATCH: to update one or more porperties
 
@@ -156,3 +158,14 @@ when updating a user using API:
 4- if doesn`t exist, return 404
 5- update the user
 6- Return the updated user
+
+***  6-Deleting-an-Object  ***
+to delete user we should send a request to api/users/1 that represet and individual user
+
+we use the DELETE method 
+
+when deleteing a user using API:
+1- Fetch user from the DB
+2- If not found, return 404
+3- Delete the user
+4- Return 200
