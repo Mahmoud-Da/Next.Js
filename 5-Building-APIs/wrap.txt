@@ -169,3 +169,54 @@ when deleteing a user using API:
 2- If not found, return 404
 3- Delete the user
 4- Return 200
+
+***  7-Validating-Requests-With-Zod  ***
+until now we used if statment ex if (params.id > 10)
+for writing validtions in real world application our object will have too many porperties
+if we want to write validation for each porperty we will end up with uncounted if statments
+so it`s better to use libraries like Zod
+
+- fisrt we install zod 
+npm i zod 
+
+- inside the users we create file we called schema.ts
+we define schema with validation rules then we export it as defualt
+
+- inside the [id]/route.tsx  we import the schema
+import schema from "../schema";
+
+instead of if (!body.name)
+we called schema.safeParse 
+Parse: thorw exception when validation error
+SafeParse: only show the validation error
+
+now insted of
+if (!body.name)
+ return NextResponse.json({ error: "Name is Required" }, { status: 400 });
+
+we write 
+if (!validation.success)
+    return NextResponse.json(validation.error.errors, { status: 400 });
+
+we test our code using post man
+request:
+{
+    "name": "d"
+}
+
+response:
+[
+    {
+        "code": "too_small",
+        "minimum": 3,
+        "type": "string",
+        "inclusive": true,
+        "exact": false,
+        "message": "String must contain at least 3 character(s)",
+        "path": [
+            "name"
+        ]
+    }
+]
+
+last thing we need to use the same technique in our post function

@@ -44,3 +44,6 @@ https://tailwindcss.com/
 
 Daisy UI:
 https://daisyui.com/
+
+Zod:
+https://zod.dev/
