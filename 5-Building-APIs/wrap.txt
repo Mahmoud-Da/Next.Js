@@ -1,0 +1,4 @@
+*** 2-Getting a Collection of Objects ***
+- how to create api
+first inside the app folder we create api folder
+ 
