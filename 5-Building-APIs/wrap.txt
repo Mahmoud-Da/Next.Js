@@ -1,4 +1,86 @@
 *** 2-Getting a Collection of Objects ***
 - how to create api
 first inside the app folder we create api folder
- 
+
+PS: the api folder is not required but is convention to follow 
+
+- inside the api folder we can have a collection of folder of each endpoint ex: (users, posts, and so on)
+
+what is the endpoint
+**************************
+- definition:
+Endpoints are physical devices that connect to and exchange information with a computer network. Some examples of endpoints are mobile devices, desktop computers, virtual machines, embedded devices, and servers.
+In other word endpoint is a remote computing device that communicates back and forth with a network to which it is connected. Examples of endpoints include:
+
+Desktops
+Laptops
+Smartphones
+Tablets
+Servers
+Workstations
+Internet-of-things (IoT) devices
+Endpoints represent key vulnerable points of entry for cybercriminals. Endpoints are where attackers execute code and exploit vulnerabilities, 
+as well as where there are assets to be encrypted, exfiltrated or leveraged. 
+With organizational workforces becoming more mobile and users connecting to internal resources from off-premises endpoints all over the world, 
+endpoints are increasingly susceptible to cyberattacks. Objectives for targeting endpoints include, but are not limited to:
+
+Use an endpoint as an entry and exit point to access high-value assets and information on an organization’s network.
+Access assets on the endpoint to exfiltrate or hold hostage, either for ransom or purely for disruption.
+Take control of the device and use it in a botnet to execute a DoS attack.
+
+simple way:
+endpoint is like a destination point or a specific place where two or more things meet or communicate. 
+In the context of technology, it often refers to a device or a node in a network where data is sent or received.
+For example, your smartphone, computer, or any device connected to the internet can be considered an endpoint. 
+When you send an email or browse a website, data is exchanged between your device and a server, 
+and both your device and the server are endpoints in that communication.
+**************************
+
+- inside the api/users we create route.tsx 
+
+very important
+**************************
+in a folder we can have page.tsx or route.tsx not both 
+page.tsx: we use it when we want to show to the user  markup or HTML element content
+route.tsx: we use it if we want to handle HTTP Request 
+**************************
+
+- inside the api/users/routes.tsx we create one or more Route Handler
+Route Handler: is a function that handle an HTTP request 
+HTTP request have multi methods
+GET => getting data
+POST =>  creating data
+PUT => updateing data
+
+- inside the route.tsx we will use handle GET HTTP request 
+export function GET(request: NextRequest){
+  // fetch data form DB
+};
+
+in this function we receive a HTTP request and return a response 
+PS: in real world application we fetch data from the DB
+
+- inside the GET Route handler we return NextResponse and we call json method and inside 
+the json method we can return any kind of object or even simple string for ex:
+- returning simple string
+export function GET(request: NextRequest) {
+  return NextResponse.json("hello");
+}
+
+now if we access to api/users we can see the hello world 
+
+- returning simple object
+
+export function GET(request: NextRequest) {
+  return NextResponse.json([
+    { id: 1, name: "Moody" },
+    { id: 2, name: "Lili" },
+  ]);
+}
+
+
+now if we access to api/users we can see our endpoint
+
+PS: we didn`t use requst parameter but we add it coz without it next js well cache the result of our response
+
+*** 3-Getting a single of Objects ***
