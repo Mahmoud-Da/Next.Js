@@ -45,7 +45,7 @@ page.tsx: we use it when we want to show to the user  markup or HTML element con
 route.tsx: we use it if we want to handle HTTP Request 
 **************************
 
-- inside the api/users/routes.tsx we create one or more Route Handler
+- inside the api/users/route.tsx we create one or more Route Handler
 Route Handler: is a function that handle an HTTP request 
 HTTP request have multi methods
 GET => getting data
@@ -84,3 +84,14 @@ now if we access to api/users we can see our endpoint
 PS: we didn`t use requst parameter but we add it coz without it next js well cache the result of our response
 
 *** 3-Getting a single of Objects ***
+Getting a single of Objects means for ex: getting user 1 from the url
+ex: api/users/1
+
+to do that
+- we create [id] folder inside the users folder and inside it we create new route.tsx file
+the same technique in the previos lesson we create Props of params
+
+now inside the Get router handlerwe should write code to 
+1- Fetch the data from a DB
+2- if found , return the data
+3- If not found, return 404 error
