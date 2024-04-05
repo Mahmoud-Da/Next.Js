@@ -138,3 +138,21 @@ return not valid
 PS: 
 return NextResponse.json({ id: 1, name: body.name }, { status: 201 });
 when create an object is better to set the status to 201 which means new object created
+
+
+***  5-Updating-an-Object  ***
+to update user we should send a request to api/users/1 that represet and individual user
+and include the updated user information in this request
+
+now in the api/users/[id]/route.tsx we create the update function
+here we have tow options PUT and PATCH
+PUT: to replace an object
+PATCH: to update one or more porperties
+
+when updating a user using API:
+1- Validate the request body
+2- if invalid, return 400 error
+3- fetch the user with the given id
+4- if doesn`t exist, return 404
+5- update the user
+6- Return the updated user
