@@ -32,6 +32,11 @@ The fundamental of Next.Js
   VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
 ```
 
+#### programs that we need
+
+PostMan:
+https://www.postman.com/downloads/
+
 #### useful sites
 
 Tailwind CSS:
@@ -39,3 +44,6 @@ https://tailwindcss.com/
 
 Daisy UI:
 https://daisyui.com/
+
+Zod:
+https://zod.dev/
