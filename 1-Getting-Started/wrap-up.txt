@@ -1,3 +1,24 @@
 what you should know
 TS
 React (Next.js is react framework)
+
+*** 3-Course Overview ***
+we have 2 parts
+
+- Part1: focus on the "Theory" which will be the essential feature
+concept of next.js 
+
+- Next.Js Fundamentals
+- Styling
+- Routing and navigation
+- Building APIs
+- Database integration with Prisma
+- Uploading files 
+- Authentication & Authorization
+- sending Emails
+- Optimizations
+- Deployment
+
+- Part2:
+apply what we learn and create full stack application
+"Issue Tracker" 
