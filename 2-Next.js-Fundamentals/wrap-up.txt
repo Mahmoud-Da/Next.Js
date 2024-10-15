@@ -20,29 +20,29 @@ Transform & minify JS code
 Build & Start apps 
 
 3- Node.js Runtime:
-Excute JS Code
+Execute JS Code
 
 - What is a Node.Js runtime?
-before 2009 JavaScript only was excuteble inside the server until 
+before 2009 JavaScript only was executable inside the server until 
 Ryan Dahl create Node to make JavaScript runs outside the Browser
 
-there is two ways that we can excute JavaScript
+there is two ways that we can execute JavaScript
 web Browser => client side
 Node.js => Server side
 
-Node.js is a fancy term for a program that can excute JavaScript code 
+Node.js is a fancy term for a program that can execute JavaScript code 
 
 - Next.Js comes with a Node.js runtime and this allows us to do really cool things 
 1- we can do Full-stack development
 so we can write both the front-end and the back-end within the same Next.Js project
 Back-end code runs with Node.Js
-Front-end code runs with Web Browser
-so the code we wrote in the Back-end it sent to the client for excution within a web browser
+Front-end code get bundled and sent to the client for execution within  Web Browser
+so the code we wrote in the Back-end it sent to the client for execution within a web browser
 
 => in contrast when building application with React we have to maintain a separate Back-end project 
 in a potentially different programming language
 
-2- allows us to render our component on the server
+2- allows us to pre-render our component on the server
 and sent it content to the client
 This Technique is called "Server-Side Rendering(SSR) "
 and it makes our application
