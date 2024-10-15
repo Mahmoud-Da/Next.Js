@@ -55,9 +55,9 @@ we just render them once and serve them whenever they are needed
 This Technique is called "Static-Site Generation"
 and can make our application super fast
 
-*** 3-Setting-Up-the-Development-Enviromnet ***
-from nodejs.org download the latest versoin
-download the extentions:
+*** 3-Setting-Up-the-Development-Environment ***
+from nodejs.org download the latest version
+download the extensions:
 - Name: ES7+ React/Redux/React-Native snippets
 VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
 https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
@@ -69,10 +69,12 @@ VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bradlc.
 
 *** 4-Creating Your First Next.Js Project *** 
 in terminal we type
-
+-------------------code----------------------
 npx create-next-app@13.4.13
+-------------------code----------------------
 
-PS: choose the defualt valuse 
+PS: choose the default values 
+-------------------code----------------------
 Ok to proceed? (y) y
 ✔ What is your project named? … next-app
 ✔ Would you like to use TypeScript? … No / Yes
@@ -81,7 +83,10 @@ Ok to proceed? (y) y
 ✔ Would you like to use `src/` directory? … No / Yes
 ✔ Would you like to use App Router? (recommended) … No / Yes
 ✔ Would you like to customize the default import alias? › No / Yes
+-------------------code----------------------
 
+in Next.Js we two types of routes the new App router and the "legacy pages router"
+we will use the "App router"
 
 *** 5-Project Structure ***
 folders:
