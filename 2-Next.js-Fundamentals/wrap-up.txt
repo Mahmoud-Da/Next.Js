@@ -93,20 +93,36 @@ folders:
 -- app => called the app-folder or app-router this file is the container
 of our routing system
 
-inisde the app-folder:
+so in next-js the router is base on the file system so unlike React Router we don`t have to configure 
+our routes and map them to the component
+
+we simply can create files and folders to simply our routes
+
+inside the app-folder:
 we have
 - global-css: for global styling
 
 - layout.tsx: basic react component that returns an html and body elements
 this represent the common layout for our pages
-inside the body element we childer
+inside the body element we children
+-------------------code----------------------
 <body className={inter.className}>{children}</body>
+-------------------code----------------------
+
 which is replaced by a page dynamically at the runtime depending on where the user is in our application
 
 - page.tsx: represent our home-page 
-for this demo we will remove everything inside the return statment and we will return
+for this demo we will remove everything inside the return statement and we will return
+-------------------code----------------------
+<main>
+  <h1>Hello World</h1>
+</main>
+-------------------code----------------------
 
-return <main>Hello World</main>;
+- we run the application
+-------------------code----------------------
+npm run dev
+-------------------code----------------------
 
 in our browser we can see the Hello world with fast refresh
 so anytime we make any changes to our typescript or css files, the changes are reflected immediately
@@ -115,28 +131,35 @@ now we can see our main page in browser have a style that coz the styles which a
 to the body element inside the globals.css file
 
 to remove the linear background we remove the 
-
+-------------------code----------------------
 background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+-------------------code----------------------
 
 from the body element in globals.css
 
-(coz my chrome is black the defualt font-color is white so i changed the color)
+(coz my chrome is black the default font-color is white so i changed the color)
 from 
+-------------------code----------------------
 color: rgb(var(--foreground-rgb));
+-------------------code----------------------
 to 
+-------------------code----------------------
 color: black
+-------------------code----------------------
 
-finaly we apply padding 1 rem to the body so our text is not too close to the edge
+finally we apply padding 1 rem to the body so our text is not too close to the edge
+-------------------code----------------------
 padding: 1rem;
+-------------------code----------------------
 
 
 -- public folder
-this where we can put our public assests, like images
+this where we can put our public assets, like images
 
 and other configurations files for the most part we don`t have to touch them 
 if in the future we needed to change any one of it we will revisit them
