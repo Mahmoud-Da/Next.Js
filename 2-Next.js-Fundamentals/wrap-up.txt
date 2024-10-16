@@ -164,7 +164,7 @@ this where we can put our public assets, like images
 and other configurations files for the most part we don`t have to touch them 
 if in the future we needed to change any one of it we will revisit them
 
-*** 6-Routing-and-Navigatio ***
+*** 6-Routing-and-Navigation ***
 
 - Routing:
 - the Routing in Next.js is based on the file system
@@ -176,42 +176,75 @@ so the route file system in Next.Js is based on convention not configuration
 - inside the page.tsx
 in this file we should export a react component that will be rerendered when the user is at this location "/users"
 
-now we generating component using rafce after creating the the component we should the function with capital letters
-in this case 
-instead of 
-const page ==> const UserPage
+- now we generating component using rafce after creating the the component we should the function with capital letters
 
+- we change the component name from page to use UserPage that will not effect the Routing 
+but to make our code more organize cause in the future may have to much 
+page.tsx files and it will be hard to now the differences
+-------------------code----------------------
+const UserPage = () => {
+  .. }
+-------------------code----------------------
 in our browser we go to 
+-------------------code----------------------
 http://localhost:3000/users
+-------------------code----------------------
 we will see the new component
 
 - another thing a bout the routing system in Next.Js
-in the users folder we added another file baside the page.tsx it will not be accessible
+in the users folder if we added another file beside the page.tsx it will not be accessible
 ex:
+-------------------code----------------------
 http://localhost:3000/users/test.css
+-------------------code----------------------
 we will have this page can`t be found
 
-- we can create a nasted routes
+- we can create a nested routes
 for example inside the users folder we can add new folder and again inside the new folder we create page.tsx
+
+- we call it newUserPage
+-------------------code----------------------
+const NewUserPage = () => {
+  return (
+    <>
+      <div>NewUserPage</div>
+    </>
+  );
+};
+-------------------code----------------------
+
 now if we access to 
+-------------------code----------------------
 http://localhost:3000/users/new
+-------------------code----------------------
 we will see 
 NewUserPage (the page.tsx component inside the users/new folder)
 
 - Navigation:
 in the page.tsx of app folder 
-if we want to navigate we don`t user a(hayper text)
+- if we go to the devTool after add the hyper text 
+and open the Network we can see that all the css files and and other 
+files will send to the server with out request
+-------------------code----------------------
 <a href="/users">Users</a>
-the reason why coz everytime we click on that Users all the style sheets are redownloaded
-which make our application performance slow when it became bigger
-for example we clike on Users we don`t want to rerender the same parts (NavBar, Side-Menu, UserCompnent) only we 
-want to render the Users component
-(we can check that using the Network tab and see all the resourses are redownloaded even if clear them when click the Users hypertext)
+-------------------code----------------------
 
-this where we use the link Component  
+- that`s why if we want to navigate we don`t user a(hyper text)
+the reason why coz every time we click on that, Users all the style sheets are re-downloaded 
+which make our application performance slow when it became bigger
+
+for example if we click on Users we don`t want to rerender the same parts (NavBar, Side-Menu, UserComponent) only we 
+want to render the Users component
+(we can check that using the Network tab and see all the recourses are re-downloaded  even if clear them when click the Users hypertext)
+
+this where we use the link Component 
+-------------------code----------------------  
+import Link from "next/link";
+
 <Link href="/users">Users</Link>
-and we can see only the UserCompnent requests and only in resourses we see the content 
-of the add/new/page.tsx content that what we called Client Side Navigation
+-------------------code----------------------
+and we can see only the UserComponent requests and only in recourses we see the content 
+of the add/new/page.tsx content that what we called "Client Side Navigation"
 
 *** 7-Client-and-Server-Components ***
 in the Next.Js project we have two enviromnets where we can render our components
