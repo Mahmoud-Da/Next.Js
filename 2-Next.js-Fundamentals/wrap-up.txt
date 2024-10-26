@@ -256,20 +256,20 @@ we refer to this Technique as client-side rendering (CSR)
 - Rendering component on the server called server-side rendering (SSR) where the component
 is rendered on the server 
 
-What are Diffrenses:
+What are Differences:
 - client-side rendering:
 1- Large bundle:
 as our application grows, so does our bundle size coz it must contain
 all of our components.
 the larger the bundle the more memory we need on the client to load all these component
-so client-side rendering is resourses heavy
+so client-side rendering is recourses heavy
 
 2- Resource intensive:
 coz the Large bundle problem
 
 3- No SEO (search engine bots):
 the search engine bots which are machines that browser and index our websites, can`t view
-our contact coz because they can`t excute JavaScript code, so they can`t render our component
+our contact coz because they can`t execute JavaScript code, so they can`t render our component
 like we browser
 
 4- less secure:
@@ -277,11 +277,11 @@ any sensitive data we have in our component or their dependencies like API keys,
 
 - server-side rendering:
 1- small bundle:
-coz we only send the essintial components to the client and prevent our bundle from becoming
+coz we only send the essential components to the client and prevent our bundle from becoming
 unnecessarily large
 
 2- Resource efficient:
-coz the server is handles most of the rendering, we need less resourses on the client 
+coz the server is handles most of the rendering, we need less recourses on the client 
 
 3- SEO:
 coz rendering is done on the server and we send actual content to the client, search engine bots
@@ -305,7 +305,7 @@ local storage
 these functionalities are only available in client components.
 so in real world application we often use a mixture of server and client components.
 
-we should defualt to the server components and use client components only when absolutely
+we should default to the server components and use client components only when absolutely
 need them
 
 ****************************************************
@@ -314,7 +314,7 @@ we want to build a page to show a list of product to build this page, we need se
 like 
 NavBar, SideBar, ProductList, ProductCard, Pagination, Footer
 
-now in the standerd React application we have to package all these components and send them
+now in the standard React application we have to package all these components and send them
 to the client for rendering.
 But in Next.Js we can keep akk the these components on the server and minimize the bundle size
 there only one exception 
@@ -328,11 +328,10 @@ with this change we only ship that tiny component to the client and keep everyth
 
 ****************************************************
 
-****************************************************
 to see that in action:
-in Next.Js all components inside the app folder are server-components by defualt
-that`s means all the pages which have craeteed so far, "users" these are server component
-by defualt and are rendered on the server 
+in Next.Js all components inside the app folder are server-components by default
+that`s means all the pages which have created so far, "users" these are server component
+by default and are rendered on the server 
 
 in Network tab if go to localhost we can see "Hello world" what the engine bots see 
 in contrast when create component with react localhost will be empty coz the content is rendering
@@ -344,25 +343,37 @@ earlier we said server component can`t have interactivity so they can`t handle e
 that`s means if we add button with onClick event we will have a runtime error 
 
 inside the ProductCard1.tsx we add
+-------------------code----------------------
 <button onClick={() => console.log("Click")}>Add to Cart</button>
+-------------------code----------------------
 
-then we add that component to the main page in app folder 
+then we add that component to the main page in app folder
+-------------------code----------------------
+<main>
+  <h1>Hello World</h1>
+  <ProductCard1 />
+</main>
+-------------------code----------------------
 
 we got this error
 Unhandled Runtime Error
+-------------------code----------------------
 Error: Event handlers cannot be passed to Client Component props.
   <button onClick={function} children=...>
-                  ^^^^^^^^^^
+-------------------code----------------------                  ^^^^^^^^^^
 If you need interactivity, consider converting part of this to a Client Component.
 
 to fix that we have tow options:
 1- change the entire ProductCard1.tsx to client component
-by adding to the top of component direcive 
+by adding to the top of component directly 
+-------------------code----------------------
 "use client"
+-------------------code----------------------
+
 with this we tell the Next.Js compiler to include this file or this component in our JavaScript bundle
 and that`s means if this component is dependent on other components those component will automatically
 become client components and will be included in our JavaScript bundle so we don`t have to repeat that
-direcive in every client component
+directive in every client component
 
 better way ProductCard2
 2- to make our application faster and more search engine friendly we want to render our components on the 
@@ -371,11 +382,59 @@ server as much as possible and use client component only when absolutely necessa
 so in ProductCard2 we if have a complex markup we want only to move the button element to client component
 so we will extract this separate button and put in different component
 now inside the component folder we create AddToCart.tsx
-on the top  we use the client direcive then we move the button of ProductCard2.tsx to our AddToCart component
+and move the button to inside it
+-------------------code----------------------
+"use client";
+import React from "react";
+
+const AddToCart = () => {
+  return (
+    <>
+      <button onClick={() => console.log("Click")}>Add to Cart</button>
+    </>
+  );
+};
+
+export default AddToCart;
+-------------------code----------------------
+on the top  we use the client directive then we move the button of ProductCard2.tsx to our AddToCart component
 and then we call that AddToCart to our ProductCard2
-****************************************************
+-------------------code----------------------
+import React from "react";
+import AddToCart from "./AddToCart";
 
+const ProductCard2 = () => {
+  return (
+    <>
+      <AddToCart />
+    </>
+  );
+};
 
+export default ProductCard2;
+-------------------code----------------------
+
+next we call it in our page.tsx (we comment the "use client" and the ProductCard1)
+-------------------code----------------------
+// "use client";
+import ProductCard1 from "./components/ProductCard1";
+import ProductCard2 from "./components/ProductCard2";
+
+export default function Home() {
+  return (
+    <>
+      <main>
+        <h1>Hello World</h1>
+        {/* <ProductCard1 /> */}
+      </main>
+      <br />
+      <ProductCard2 />
+    </>
+  );
+}
+-------------------code----------------------
+
+- now we can see no error with less JS bundle 
 
 *** 8-Data-Fetching ***
 there is two ways to fetching data we can fetch them on the client or on the server
