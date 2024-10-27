@@ -576,36 +576,59 @@ we are not going to get the data cache.
 *** 10-Static and Dynamic Rendering ***
 in Next.Js we another performance optimization Technique called static rendering or static site generation
 
-the idea of the static rendering:
+- static rendering:
 if we have pages or component has static data we can have Next.Js render them once when we build the application
 for production 
 so next time those pages or components are needed, Next.js is not going to re-render them
 it`s going to get their payload or content from the cache which is based on the file system
-static rendering means rendering at the build time 
+static rendering means => rendering at the build time 
 
-Dynamic Rendering:
+- Dynamic Rendering:
 rendering which happens at request time.
 
 to see it in action:
-*********************************************************************************************
-down the <h1>Users</h1> we calculate the time by adding 
+in the page.tsx of users
+calculate the time by adding 
+-------------------code----------------------
+<h1>Users</h1>
 <p>{new Date().toLocaleTimeString()}</p>
+-------------------code----------------------
 
-we can see the time is changing coz it on the development mode
-but if we build the application for production the time stamp is not going to change coz Next.Js will
+now we refresh the the page multi times
+-------------------code----------------------
+http://localhost:3000/users
+-------------------code----------------------
+
+we can see the time is changing coz it on the development mode (Dynamic Rendering)
+
+- but if we build the application for production the time stamp is not going to change coz Next.Js will
 treat this page as static page 
 
-when Next.Js render the component as static or dynamic
-depends on how we fetch the data by default it will treated as statc but 
+cause by default wherever we use the fetch function Next.js will cache the data so 
+it treat our data as static (unchanged data) 
+so when we render this page the Next.js will decide to render it as statically at build time 
+
+- when Next.Js render the component as static or dynamic?
+depends on how we fetch the data by default it will treated as static but 
 if we cancel the data cache Next.Js we treat that component as dynamic
 
-now to check that in production instead of 
-npm run dev (develop mode)
+- now to check that in production instead of 
+-- PS: develop mode
+-------------------code----------------------
+npm run dev
+-------------------code----------------------
 
-npm run build (production mode)
-npm start(to run the application after building it)
+-- PS: production mode
+-------------------code----------------------
+npm run build 
+-------------------code----------------------
+- the (to run the application after building it)
+-------------------code----------------------
+npm start
+-------------------code----------------------
 
 when we see the log while building the project 
+-------------------code----------------------
 Route (app)                              Size     First Load JS
 ┌ ○ /                                    360 B          84.6 kB
 ├ ○ /_not-found                          885 B          85.2 kB
@@ -618,12 +641,24 @@ Route (app)                              Size     First Load JS
 
 
 ○  (Static)  prerendered as static content
-
+-------------------code----------------------
 we can see that the component which start with  ○ is a static component
 
-now the time of the users is not changing coz its treated as static
+- now if we go to and refresh the page 
+-------------------code----------------------
+http://localhost:3000/users
+-------------------code----------------------
+we will see the time of the users is not changing coz its treated as static
 
-now if disable the caching and rebuild the application for production
+- now if disable the caching and rebuild the application for production
+-------------------code----------------------
+const res = await fetch("https://jsonplaceholder.typicode.com/users", {
+    cache: "no-store",
+  });
+-------------------code----------------------
+
+- the log will be
+-------------------code----------------------
 Route (app)                              Size     First Load JS
 ┌ ○ /                                    360 B          84.6 kB
 ├ ○ /_not-found                          885 B          85.2 kB
@@ -637,11 +672,13 @@ Route (app)                              Size     First Load JS
 
 ○  (Static)   prerendered as static content
 λ  (Dynamic)  server-rendered on demand using Node.js
+-------------------code----------------------
 
 we can see that the component which start with  λ is a dynamic component
 now the time of the users is not changing coz its treated as dynamic
 
 
+******************************************************
 to recap
             ==> Client Side
 Rendering 
@@ -650,8 +687,8 @@ Rendering
 
                           ==> Dynamic (at request time)
 
-*********************************************************************************************
+******************************************************
 
-PS: when running the application in the development mode we can see anychange immediately
+PS: when running the application in the development mode we can see any change immediately
 so when working is better to use the development mode
 
