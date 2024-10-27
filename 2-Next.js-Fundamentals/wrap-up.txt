@@ -527,7 +527,7 @@ so when fetching data we should do it using Server component
 Fetching in the Server component has extra benefit and that is Caching
 
 What is Caching:
-Storing data somewher that is faster to access
+Storing data somewhere that is faster to access
 
 basically there is three places where we can get the data from 
 Data Source:
@@ -538,32 +538,39 @@ Data Source:
 as we go down form ↑list  (Data Source) getting data becomes slower
 ex:
 getting data from the Network is always than getting it from the file system
-*********************************************************************************************
-for this reason Next.Js comes with a built data cache so where ever we use the fetch function 
+
+- for this reason Next.Js comes with a built data cache so where ever we use the fetch function 
 to get some data Next.Js will automatically store the result in its data cache which base in on the 
 file system so the next time we need the same piece of data, the next time we hit the same url, Next.Js
 is not going to got to json placeholder 
+
 it`s going to get the data cache, from the file system of course we have full control 
 over this caching behavior if we have data that changes frequently. we can disable caching or treat
-data in cache as frech for a certain period of time 
-to see that in action we can 
+data in cache as fresh for a certain period of time 
+
+- to see that in action we can, we can pass another argument to the fetch method 
+-------------------code----------------------
 const res = await fetch("https://jsonplaceholder.typicode.com/users", {
     cache: "no-store",
   });
-that one option and it usful if we have data that changes frequently (we always want to show the fresh data)
+-------------------code----------------------
 
-the other option is keep the data fresh for a certain time we set the next object
+that one option and it useful if we have data that changes frequently (we always want to show the fresh data)
 
+- the other option is keep the data fresh for a certain time we set the next object
+-------------------code----------------------
 const res = await fetch("https://jsonplaceholder.typicode.com/users", {
     next: { revalidate: 10 },
   });
+-------------------code----------------------
+
 revalidate is parameter for configuration that related to next
 we set it to 10 that means Next.js is going to run background job and get fresh data from the server (backend)
 every 10 seconds 
 
 PS: caching behavior is implemented in the fetch function so if we used third party library like access
 we are not going to get the data cache.
-*********************************************************************************************
+
 
 
 *** 10-Static and Dynamic Rendering ***
