@@ -1,40 +1,67 @@
 *** 2-Global Styles ***
+we will talk a bout global styles
+
+- we open the app folder and then access to globals.css file 
+- we have root where we can define custom property foreground and background and so on
+-------------------code----------------------
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+-------------------code----------------------
+
+- we have also prefers-color-scheme which we can check if the user is on the dark mode it
+-------------------code----------------------
 @media (prefers-color-scheme: dark)
-if the user is on the dark mode 
+-------------------code----------------------
 
-to clean our global.css file 
-************************
-from the body we remove
-- in the body elements
+- now in we have the body where we define the style of our body elements and we can see
+it uses the values from the root like --background-end-rgb
+-------------------code----------------------
+body {
+  color: rgp(var(--background-end-rgb));
+  padding: 1rem;
+}
+-------------------code----------------------
 
-background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 
-and instead we add
-padding: 1rem;
+- now we clean our style sheet by remain only one property --foreground-rgb
+-------------------code----------------------
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-- @media 
-we remove these two lines
---background-start-rgb: 0, 0, 0;
---background-end-rgb: 0, 0, 0;
+:root {
+  --foreground-rgb: 0, 0, 0;
+}
 
-- root
---background-start-rgb: 214, 219, 220;
---background-end-rgb: 255, 255, 255;
-************************
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+  }
+}
 
-- we copy the app folder from the prevoius lesson (2-Next.js-Fundamentals)
-then we run our application in development mode
+body {
+  color: rgp(var(--foreground-rgb));
+  padding: 1rem;
+}
+-------------------code----------------------
 
+
+- we copy the app folder from the previous lesson (2-Next.js-Fundamentals)
+then we run our application in development mode (when we run our application in development mode we
+can see immediately any changes we made)
+-------------------code----------------------
+npm run dev
+-------------------code----------------------
+
+PS:
 global.css: to write the styles that apply to all pages, anything related to body/head/footer element
 
 so inside the global.css we should never define a custom classes like user-list cards etc ...
-coz as more as our project goes larger global.css we be unmaintainble and more importantlly 
-as we change or delete our components, we`ll have to remmber and do some clean-up again in global.css
+coz as more as our project goes larger global.css we be unmaintainable and more importantly 
+as we change or delete our components, we`ll have to remember and do some clean-up again in global.css
 otherwise we well end up with dead styles in the global.css
 
 
