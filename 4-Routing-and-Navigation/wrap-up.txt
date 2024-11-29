@@ -1,2 +1,112 @@
 *** 1-Routing & Navigation ***
 
+*** 2-Routing Overview ***
+
+- we said earlier Next.js has a route system based on the file system.
+
+- we move the components and the users folder from the previous lessons lesson 3
+
+- special files:
+page.tsx: is one of the special files that app router looks for 
+layout.tsx: define a specific layout for pages
+loading.tsx: showing loading UI`s
+route.tsx: creating API
+not-found.tsx: showing custom errors
+error.tsx: showing general custom error pages
+
+- and as we said before the page file is only publicly accessible so if 
+we but near to it a style file or a script file it will not be exposed to the outside(to the client)
+
+for example next to users/page.tsx if we put test.css and try to access it 
+we will have 404 error 
+-------------------code----------------------
+http://localhost:3000/users/test.css
+-------------------code----------------------
+
+- so with this we can relocate our components and that is very powerful 
+for example let`s say our in users/page.tsx our page code became so long and want to spread it 
+to another component so we decided to take the table markup and put it in another component
+-------------------code----------------------
+<table className="table table-borderd">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    {users.map((user) => (
+      <tr key={user.id}>
+        <td>{user.name}</td>
+        <td>{user.email}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+-------------------code----------------------
+
+- we create users/UserTable.tsx and inside we create component using "rafce" 
+and grab the table html markup inside it
+-------------------code----------------------
+const UserTable = () => {
+  return (
+    <table className="table table-borderd">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map((user) => (
+          <tr key={user.id}>
+            <td>{user.name}</td>
+            <td>{user.email}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+-------------------code----------------------
+
+- now instead of passing the users as props we grab the user fetch code too and add async
+
+-------------------code----------------------
+to this component
+interface Users {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const UserTable = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const users: Users[] = await res.json();
+  
+  return ....
+}
+-------------------code----------------------
+
+- PS: now we use the interface only in this component later if want to use it in another place we 
+move it to another file
+
+- now we call it inside the users/page.tsx 
+-------------------code----------------------
+import UserTable from "./UserTable";
+
+const UserPage = async () => {
+  return (
+    <>
+      <h1>Users</h1>
+      <p>{new Date().toLocaleTimeString()}</p>
+      <UserTable></UserTable>
+    </>
+  );
+};
+-------------------code----------------------
+
+- with this approach we don`t need to locate our UserTable inside the components folder 
+cause as our project get larger the (general)components folder will be a big mess
+now we use the UserTable component only with the users so in future if we want to use it another place 
+we should move to the components folder
